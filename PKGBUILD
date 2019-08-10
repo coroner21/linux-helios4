@@ -1,6 +1,6 @@
 # ARMv7 Helios4
-# Repository: https://github.com/gbcreation/linux-helios4
-# Maintainer: Gontran Baerts
+# Repository: https://github.com/coroner21/linux-helios4
+# Maintainer: coroner21
 
 buildarch=4
 
@@ -95,7 +95,7 @@ build() {
   cd "${srcdir}/${_srcname}"
 
   # get kernel version
-  make prepare
+  make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- prepare
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
@@ -118,7 +118,7 @@ build() {
   #yes "" | make config
 
   # build!
-  make ${MAKEFLAGS} zImage modules dtbs
+  make -j9 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
 }
 
 _package() {
@@ -141,7 +141,7 @@ _package() {
 
   mkdir -p "${pkgdir}"/{boot,usr/lib/modules}
   make INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
-  make INSTALL_DTBS_PATH="${pkgdir}/boot/dtbs" dtbs_install
+  make ARCH=arm INSTALL_DTBS_PATH="${pkgdir}/boot/dtbs" dtbs_install
   cp arch/$KARCH/boot/zImage "${pkgdir}/boot/zImage"
 
   # make room for external modules
@@ -290,7 +290,7 @@ _package-headers() {
   rm -rf "${pkgdir}"/usr/lib/modules/${_kernver}/build/arch/{alpha,arc,arm26,arm64,avr32,blackfin,c6x,cris,frv,h8300,hexagon,ia64,m32r,m68k,m68knommu,metag,mips,microblaze,mn10300,openrisc,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,unicore32,um,v850,x86,xtensa}
 }
 
-pkgname=("${pkgbase}" "${pkgbase}-headers")
+pkgname=("${pkgbase}")
 for _p in ${pkgname[@]}; do
   eval "package_${_p}() {
     _package${_p#${pkgbase}}
