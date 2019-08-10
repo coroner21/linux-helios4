@@ -52,14 +52,16 @@ md5sums=('ddf994de00d7b18395886dd9b30b9262'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3e2a512f8da5db5fe9f17875405e56a3'
-         '6613d49e406496156552df6475a3557b'
-         'b9a900b7da3c9a1a9d4b8d86db3f7c94'
+         'a637eedf6a13d4c9f8cd024c13f6b62a'
+         '779c884ae9854df32e8ced0e86359649'
          '5aa8f19e3d2e23e475282525f36fe454'
          'b338409db059f5a38bc333372223f1cc'
          '5876ccfe05a07b64661556ea4fae4b59')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
+  # extract RCN-patch
+  gzip -df ../patch-${rcnver%.0}-${rcnrel}.diff.gz
 
   # add upstream patch
   git apply --whitespace=nowarn ../patch-${pkgver}
