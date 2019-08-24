@@ -8,10 +8,10 @@ pkgbase=linux-helios4
 _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Helios4"
-pkgver=5.2.5
+pkgver=5.2.9
 pkgrel=1
-rcnver=5.2.5
-rcnrel=armv7-x3
+rcnver=5.2.8
+rcnrel=armv7-x4
 arch=('armv7h')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -28,27 +28,31 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0006-set-default-cubietruck-led-triggers.patch'
         '0007-exynos4412-odroid-set-higher-minimum-buck2-regulator.patch'
         '0008-ARM-dove-enable-ethernet-on-D3Plug.patch'
+        '0009-USB-Armory-MkII-support.patch'
+        '0010-clk-imx-keep-the-mmdc-p1-ipg-clock-always-on-on-6sx-.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook'
-	'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/91-01-libata-add-ledtrig-support.patch'
-	'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/91-02-Enable-ATA-port-LED-trigger.patch'
-	'92-mvebu-gpio-remove-hardcoded-timer-assignment.patch'
-	'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/92-mvebu-gpio-add_wake_on_gpio_support.patch'
-	'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/94-helios4-dts-add-wake-on-lan-support.patch')
+        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/91-01-libata-add-ledtrig-support.patch'
+        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/91-02-Enable-ATA-port-LED-trigger.patch'
+        '92-mvebu-gpio-remove-hardcoded-timer-assignment.patch'
+        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/92-mvebu-gpio-add_wake_on_gpio_support.patch'
+        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/94-helios4-dts-add-wake-on-lan-support.patch')
 md5sums=('ddf994de00d7b18395886dd9b30b9262'
-         '0bfed20acab24d45232983b54339a3c9'
-         'ef32c9bf05aeff66073c09255a526b32'
-         '2200b611940b67e43be161055c48e092'
-         '74ee346c9c71145fa84f1a9c7f4bbea0'
-         'e052bf1c5d21e6cd2890109dbbbd788d'
-         '8dd34e9cf68282a9683a7dbce92f517c'
-         '4ef1f863914c829334c1f35f1c8294e9'
-         '1d66498df88eca2360ff3d3a640add48'
-         '5761a8951e9dcb01b4f631c0d92f2e03'
-         'd2dee481fdde72aea9111e93c090bd69'
-         'a9cccb64b3c8ecf61fb4a833e3f371ed'
+         '8e44c6541cfd15b87906eaf2ce91a3b9'
+         'c458cd95b46b24009eca6913811787b4'
+         'bef82432bcc94e7553774321433a5192'
+         '9f7cdf923b9dd093e4cf63550962b4e9'
+         'ce5b6cf01ab9f9b65c9699cd9bebf4b1'
+         'c796077757ad5ca02764d421bc349849'
+         'f01e98dba279885735d2956acab54d6b'
+         '2a46185236b864a985b80f159d00ee32'
+         '74de7f3027ec96a25db9f0b2c52347ab'
+         'c33c9c332eae5c8fa807090379745d4a'
+         '78e337c2ef4ef76582f422e3e6a2c20c'
+         '20ab4c15289741e57b6a394a75f799df'
+         '9272ff413b8fddd2573de06a6a5ec0e5'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3e2a512f8da5db5fe9f17875405e56a3'
@@ -78,6 +82,8 @@ prepare() {
   git apply ../0006-set-default-cubietruck-led-triggers.patch
   git apply ../0007-exynos4412-odroid-set-higher-minimum-buck2-regulator.patch
   git apply ../0008-ARM-dove-enable-ethernet-on-D3Plug.patch
+  git apply ../0009-USB-Armory-MkII-support.patch
+  git apply ../0010-clk-imx-keep-the-mmdc-p1-ipg-clock-always-on-on-6sx-.patch
   patch -Np1 < ../91-01-libata-add-ledtrig-support.patch
   patch -Np1 < ../91-02-Enable-ATA-port-LED-trigger.patch
   patch -Np1 < ../92-mvebu-gpio-remove-hardcoded-timer-assignment.patch
