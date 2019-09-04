@@ -8,7 +8,7 @@ pkgbase=linux-helios4
 _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Helios4"
-pkgver=5.2.9
+pkgver=5.2.11
 pkgrel=1
 arch=('armv7h')
 url="http://www.kernel.org/"
@@ -21,13 +21,13 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook'
-        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-default/91-01-libata-add-ledtrig-support.patch'
-        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-default/91-02-Enable-ATA-port-LED-trigger.patch'
+        '91-01-libata-add-ledtrig-support.patch'
+        '91-02-Enable-ATA-port-LED-trigger.patch'
         '92-mvebu-gpio-remove-hardcoded-timer-assignment.patch'
-        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/92-mvebu-gpio-add_wake_on_gpio_support.patch'
-        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/mvebu-next/94-helios4-dts-add-wake-on-lan-support.patch')
+        '92-mvebu-gpio-add_wake_on_gpio_support.patch'
+        '94-helios4-dts-add-wake-on-lan-support.patch')
 md5sums=('ddf994de00d7b18395886dd9b30b9262'
-         '8e44c6541cfd15b87906eaf2ce91a3b9'
+         '44dfa2755410b72ee660fa29bfb15af1'
          '94d4a65cfc8e284bca5305d2281b2b4b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
