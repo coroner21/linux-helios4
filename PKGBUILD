@@ -8,7 +8,7 @@ pkgbase=linux-helios4
 _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Helios4"
-pkgver=5.2.11
+pkgver=5.2.14
 pkgrel=1
 arch=('armv7h')
 url="http://www.kernel.org/"
@@ -27,7 +27,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
         '94-helios4-dts-add-wake-on-lan-support.patch')
 md5sums=('ddf994de00d7b18395886dd9b30b9262'
-         '44dfa2755410b72ee660fa29bfb15af1'
+         'cdaffbebb53e51b862ba1b959a0da859'
          '94d4a65cfc8e284bca5305d2281b2b4b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
@@ -42,7 +42,7 @@ prepare() {
   cd "${srcdir}/${_srcname}"
 
   # add upstream patch
-  git apply --whitespace=nowarn ../patch-${pkgver}
+  patch -Np1 < ../patch-${pkgver}
 
   # Patches specifically for helios4
   patch -Np1 < ../91-01-libata-add-ledtrig-support.patch
