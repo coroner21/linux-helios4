@@ -8,7 +8,7 @@ pkgbase=linux-helios4
 _srcname=linux-5.3
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Helios4"
-pkgver=5.3.1
+pkgver=5.3.5
 pkgrel=1
 arch=('armv7h')
 url="http://www.kernel.org/"
@@ -27,7 +27,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
         '94-helios4-dts-add-wake-on-lan-support.patch')
 md5sums=('c99feaade8047339528fb066ec5f8a49'
-         '476673d3ab1470fd9bac0da60774f3fd'
+         '3b36bc19ede1c0680bd0eb60db4ab0aa'
          'ad07739be5f447985c0589f16cb6b43c'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
