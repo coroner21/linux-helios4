@@ -5,10 +5,10 @@
 buildarch=4
 
 pkgbase=linux-helios4
-_srcname=linux-5.3
+_srcname=linux-5.4
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Helios4"
-pkgver=5.3.12
+pkgver=5.4.6
 pkgrel=1
 arch=('armv7h')
 url="http://www.kernel.org/"
@@ -26,15 +26,15 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '92-mvebu-gpio-remove-hardcoded-timer-assignment.patch'
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
         '94-helios4-dts-add-wake-on-lan-support.patch')
-md5sums=('c99feaade8047339528fb066ec5f8a49'
-         'ad2aad6f5f47ce3cddc87d0beb11d37c'
-         'ad07739be5f447985c0589f16cb6b43c'
+md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
+         '9f348b83af2fd13db31b7595aded4846'
+         '8b87f3d571941e85113d337fe33b03f8'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3e2a512f8da5db5fe9f17875405e56a3'
          '6613d49e406496156552df6475a3557b'
          'b9a900b7da3c9a1a9d4b8d86db3f7c94'
-         '821c550de3a3d3d68498db8596ff56c5'
+         '64545be23c2e30d9e06fc0809eed05dc'
          '955982bda46fa0955b2dd5ea152421d2'
          '5876ccfe05a07b64661556ea4fae4b59')
 
