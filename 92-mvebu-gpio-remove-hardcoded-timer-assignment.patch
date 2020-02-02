@@ -1,7 +1,7 @@
-diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/drivers/gpio/gpio-mvebu.c
---- linux-5.3_old/drivers/gpio/gpio-mvebu.c	2019-09-15 23:19:32.000000000 +0200
-+++ linux-5.3/drivers/gpio/gpio-mvebu.c	2019-09-28 15:47:37.478905365 +0200
-@@ -93,20 +93,42 @@
+diff '--color=auto' -Naur linux-5.5_old/drivers/gpio/gpio-mvebu.c linux-5.5/drivers/gpio/gpio-mvebu.c
+--- linux-5.5_old/drivers/gpio/gpio-mvebu.c	2020-02-02 13:00:24.192857951 +0100
++++ linux-5.5/drivers/gpio/gpio-mvebu.c	2020-02-02 13:11:02.346146194 +0100
+@@ -94,20 +94,42 @@
  
  #define MVEBU_MAX_GPIO_PER_BANK		32
  
@@ -50,7 +50,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  struct mvebu_gpio_chip {
  	struct gpio_chip   chip;
  	struct regmap     *regs;
-@@ -283,12 +305,12 @@
+@@ -284,12 +306,12 @@
   * Functions returning addresses of individual registers for a given
   * PWM controller.
   */
@@ -65,7 +65,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  {
  	return mvpwm->membase + PWM_BLINK_OFF_DURATION_OFF;
  }
-@@ -610,39 +632,73 @@
+@@ -642,39 +664,73 @@
  	struct mvebu_pwm *mvpwm = to_mvebu_pwm(chip);
  	struct mvebu_gpio_chip *mvchip = mvpwm->mvchip;
  	struct gpio_desc *desc;
@@ -158,7 +158,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  }
  
  static void mvebu_pwm_get_state(struct pwm_chip *chip,
-@@ -650,17 +706,24 @@
+@@ -682,17 +738,24 @@
  				struct pwm_state *state) {
  
  	struct mvebu_pwm *mvpwm = to_mvebu_pwm(chip);
@@ -186,7 +186,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	if (val > UINT_MAX)
  		state->duty_cycle = UINT_MAX;
  	else if (val)
-@@ -669,9 +732,9 @@
+@@ -701,9 +764,9 @@
  		state->duty_cycle = 1;
  
  	val = (unsigned long long)
@@ -198,7 +198,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	if (val < state->duty_cycle) {
  		state->period = 1;
  	} else {
-@@ -690,19 +753,21 @@
+@@ -722,19 +785,21 @@
  	else
  		state->enabled = false;
  
@@ -222,7 +222,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	do_div(val, NSEC_PER_SEC);
  	if (val > UINT_MAX)
  		return -EINVAL;
-@@ -711,7 +776,7 @@
+@@ -743,7 +808,7 @@
  	else
  		on = 1;
  
@@ -231,7 +231,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  		(state->period - state->duty_cycle);
  	do_div(val, NSEC_PER_SEC);
  	if (val > UINT_MAX)
-@@ -721,16 +786,16 @@
+@@ -753,16 +818,16 @@
  	else
  		off = 1;
  
@@ -252,7 +252,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  
  	return 0;
  }
-@@ -749,10 +814,10 @@
+@@ -781,10 +846,10 @@
  
  	regmap_read(mvchip->regs, GPIO_BLINK_CNT_SELECT_OFF + mvchip->offset,
  		    &mvpwm->blink_select);
@@ -267,7 +267,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  }
  
  static void __maybe_unused mvebu_pwm_resume(struct mvebu_gpio_chip *mvchip)
-@@ -761,10 +826,10 @@
+@@ -793,10 +858,10 @@
  
  	regmap_write(mvchip->regs, GPIO_BLINK_CNT_SELECT_OFF + mvchip->offset,
  		     mvpwm->blink_select);
@@ -282,15 +282,15 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  }
  
  static int mvebu_pwm_probe(struct platform_device *pdev,
-@@ -775,6 +840,7 @@
+@@ -806,6 +871,7 @@
+ 	struct device *dev = &pdev->dev;
  	struct mvebu_pwm *mvpwm;
- 	struct resource *res;
  	u32 set;
 +	enum mvebu_pwm_ctrl ctrl_set;
  
  	if (!of_device_is_compatible(mvchip->chip.of_node,
  				     "marvell,armada-370-gpio"))
-@@ -797,12 +863,15 @@
+@@ -818,12 +884,15 @@
  	 * Use set A for lines of GPIO chip with id 0, B for GPIO chip
  	 * with id 1. Don't allow further GPIO chips to be used for PWM.
  	 */
@@ -309,29 +309,25 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	regmap_write(mvchip->regs,
  		     GPIO_BLINK_CNT_SELECT_OFF + mvchip->offset, set);
  
-@@ -812,15 +881,13 @@
- 	mvchip->mvpwm = mvpwm;
- 	mvpwm->mvchip = mvchip;
- 
--	mvpwm->membase = devm_ioremap_resource(dev, res);
+@@ -839,12 +908,12 @@
+ 	 * for the first two GPIO chips. So if the resource is missing
+ 	 * we can't treat it as an error.
+ 	 */
+-	mvpwm->membase = devm_platform_ioremap_resource_byname(pdev, "pwm");
 -	if (IS_ERR(mvpwm->membase))
 -		return PTR_ERR(mvpwm->membase);
--
--	mvpwm->clk_rate = clk_get_rate(mvchip->clk);
--	if (!mvpwm->clk_rate) {
--		dev_err(dev, "failed to get clock rate\n");
-+	mvpwm->controller.membase = devm_ioremap_resource(dev, res);
++	mvpwm->controller.membase = devm_platform_ioremap_resource_byname(pdev, "pwm");
 +	if (IS_ERR(mvpwm->controller.membase))
 +		return PTR_ERR(mvpwm->controller.membase);
-+	
-+	mvpwm->controller.clk_rate = clk_get_rate(mvchip->clk);
-+	if (!mvpwm->controller.clk_rate)
- 		return -EINVAL;
--	}
  
- 	mvpwm->chip.dev = dev;
- 	mvpwm->chip.ops = &mvebu_pwm_ops;
-@@ -833,7 +900,9 @@
+-	mvpwm->clk_rate = clk_get_rate(mvchip->clk);
+-	if (!mvpwm->clk_rate) {
++	mvpwm->controller.clk_rate = clk_get_rate(mvchip->clk);
++	if (!mvpwm->controller.clk_rate) {
+ 		dev_err(dev, "failed to get clock rate\n");
+ 		return -EINVAL;
+ 	}
+@@ -860,7 +929,9 @@
  	 */
  	mvpwm->chip.base = -1;
  
