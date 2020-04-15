@@ -8,7 +8,7 @@ pkgbase=linux-helios4
 _srcname=linux-5.6
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Helios4"
-pkgver=5.6.2
+pkgver=5.6.4
 pkgrel=1
 arch=('armv7h')
 url="http://www.kernel.org/"
@@ -27,8 +27,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
         '94-helios4-dts-add-wake-on-lan-support.patch')
 md5sums=('7b9199ec5fa563ece9ed585ffb17798f'
-         '07be77524655091203e24eed91b951c7'
-         '089d3ad28aa8cd4b98f6b3ff4d7f38e4'
+         '45d7aff0cb600805973745848fd35908'
+         '6563409fe816887996f1d855af4469f4'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3e2a512f8da5db5fe9f17875405e56a3'
@@ -64,7 +64,7 @@ build() {
   cd "${srcdir}/${_srcname}"
 
   # get kernel version
-  make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- prepare
+  make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- prepare
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
@@ -87,7 +87,7 @@ build() {
   #yes "" | make config
 
   # build!
-  make -j9 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
+  make -j9 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- zImage modules dtbs
 }
 
 _package() {
