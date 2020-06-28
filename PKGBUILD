@@ -25,7 +25,12 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '91-02-Enable-ATA-port-LED-trigger.patch'
         '92-mvebu-gpio-remove-hardcoded-timer-assignment.patch'
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
-        '94-helios4-dts-add-wake-on-lan-support.patch')
+        '94-helios4-dts-add-wake-on-lan-support.patch'
+	'800-Add_Armada_38x_support_for_clk-cpu.patch'
+	'801-Use_shorter_register_definition_in_pmsu_c.patch'
+	'802-Made_the_dynamic_frequency_scaling_support_more_generic.patch'
+	'803-Armada_38x_Add_dynamic_frequency_scaling_support_in_pmsu.patch'
+	'804-Update_Armada_38x_DT_for_dynamic_frequency_scaling.patch')
 md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
          '659766817fc17760dca127c4e31e6014'
          '1ef007d2c19c09a6f9fa73787041258d'
@@ -36,7 +41,12 @@ md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
          'b9a900b7da3c9a1a9d4b8d86db3f7c94'
          '64545be23c2e30d9e06fc0809eed05dc'
          '955982bda46fa0955b2dd5ea152421d2'
-         '5876ccfe05a07b64661556ea4fae4b59')
+         '5876ccfe05a07b64661556ea4fae4b59'
+         'ee5b72655f4e2f2dcd82744047d5b326'
+         'dda2f8d133be50e6ae2a57cd5fcce92d'
+         'bc24f08b79adb1e1bd82e836c0ac3b32'
+         '160be0eee4a7c7b51fd3a5b115ff4322'
+         '11dd8dc3ab1836bd7f9c78547d70a7dc')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
@@ -50,6 +60,11 @@ prepare() {
   patch -Np1 < ../92-mvebu-gpio-remove-hardcoded-timer-assignment.patch
   patch -Np1 < ../92-mvebu-gpio-add_wake_on_gpio_support.patch
   patch -Np1 < ../94-helios4-dts-add-wake-on-lan-support.patch
+  patch -Np1 < ../800-Add_Armada_38x_support_for_clk-cpu.patch
+  patch -Np1 < ../801-Use_shorter_register_definition_in_pmsu_c.patch
+  patch -Np1 < ../802-Made_the_dynamic_frequency_scaling_support_more_generic.patch
+  patch -Np1 < ../803-Armada_38x_Add_dynamic_frequency_scaling_support_in_pmsu.patch
+  patch -Np1 < ../804-Update_Armada_38x_DT_for_dynamic_frequency_scaling.patch
 
   cat "${srcdir}/config" > ./.config
 
