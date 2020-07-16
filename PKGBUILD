@@ -33,11 +33,11 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
 	'804-Update_Armada_38x_DT_for_dynamic_frequency_scaling.patch')
 md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
          '0513c6ce889123c98f06c507f0e2517a'
-         'e3b2d5864de641412557dfd2d5b05540'
+         '554b92936cc2f59b3975f84f759f39ed'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3e2a512f8da5db5fe9f17875405e56a3'
-         '6613d49e406496156552df6475a3557b'
+         'f2d6724b72663f251c7ccdaa3c205dc8'
          'b9a900b7da3c9a1a9d4b8d86db3f7c94'
          '64545be23c2e30d9e06fc0809eed05dc'
          '955982bda46fa0955b2dd5ea152421d2'
@@ -55,7 +55,7 @@ prepare() {
   patch -Np1 < ../patch-${pkgver}
 
   # Patches specifically for helios4
-#  patch -Np1 < ../91-01-libata-add-ledtrig-support.patch
+  patch -Np1 < ../91-01-libata-add-ledtrig-support.patch
   patch -Np1 < ../91-02-Enable-ATA-port-LED-trigger.patch
   patch -Np1 < ../92-mvebu-gpio-remove-hardcoded-timer-assignment.patch
   patch -Np1 < ../92-mvebu-gpio-add_wake_on_gpio_support.patch
