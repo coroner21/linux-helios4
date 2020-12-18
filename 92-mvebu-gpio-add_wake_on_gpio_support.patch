@@ -1,6 +1,6 @@
-diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/drivers/gpio/gpio-mvebu.c
---- linux-5.3_old/drivers/gpio/gpio-mvebu.c	2019-09-28 21:24:05.100494466 +0200
-+++ linux-5.3/drivers/gpio/gpio-mvebu.c	2019-09-28 21:25:25.725765447 +0200
+diff '--color=auto' -Naur linux-5.10_old/drivers/gpio/gpio-mvebu.c linux-5.10/drivers/gpio/gpio-mvebu.c
+--- linux-5.10_old/drivers/gpio/gpio-mvebu.c	2020-12-13 23:41:30.000000000 +0100
++++ linux-5.10/drivers/gpio/gpio-mvebu.c	2020-12-17 21:15:30.163013932 +0100
 @@ -40,6 +40,7 @@
  #include <linux/gpio/consumer.h>
  #include <linux/gpio/machine.h>
@@ -9,7 +9,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  #include <linux/io.h>
  #include <linux/irq.h>
  #include <linux/irqchip/chained_irq.h>
-@@ -134,7 +135,7 @@
+@@ -111,7 +112,7 @@
  	struct regmap     *regs;
  	u32		   offset;
  	struct regmap     *percpu_regs;
@@ -18,7 +18,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	struct irq_domain *domain;
  	int		   soc_variant;
  
-@@ -620,6 +621,34 @@
+@@ -601,6 +602,34 @@
  }
  
  /*
@@ -53,7 +53,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
   * Functions implementing the pwm_chip methods
   */
  static struct mvebu_pwm *to_mvebu_pwm(struct pwm_chip *chip)
-@@ -1279,7 +1308,7 @@
+@@ -1219,7 +1248,7 @@
  
  	err = irq_alloc_domain_generic_chips(
  	    mvchip->domain, ngpios, 2, np->name, handle_level_irq,
@@ -62,7 +62,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	if (err) {
  		dev_err(&pdev->dev, "couldn't allocate irq chips %s (DT).\n",
  			mvchip->chip.label);
-@@ -1297,6 +1326,8 @@
+@@ -1237,6 +1266,8 @@
  	ct->chip.irq_mask = mvebu_gpio_level_irq_mask;
  	ct->chip.irq_unmask = mvebu_gpio_level_irq_unmask;
  	ct->chip.irq_set_type = mvebu_gpio_irq_set_type;
@@ -71,7 +71,7 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	ct->chip.name = mvchip->chip.label;
  
  	ct = &gc->chip_types[1];
-@@ -1305,6 +1336,8 @@
+@@ -1245,6 +1276,8 @@
  	ct->chip.irq_mask = mvebu_gpio_edge_irq_mask;
  	ct->chip.irq_unmask = mvebu_gpio_edge_irq_unmask;
  	ct->chip.irq_set_type = mvebu_gpio_irq_set_type;
@@ -80,11 +80,11 @@ diff '--color=auto' -Naur linux-5.3_old/drivers/gpio/gpio-mvebu.c linux-5.3/driv
  	ct->handler = handle_edge_irq;
  	ct->chip.name = mvchip->chip.label;
  
-@@ -1320,6 +1353,7 @@
+@@ -1260,6 +1293,7 @@
  			continue;
  		irq_set_chained_handler_and_data(irq, mvebu_gpio_irq_handler,
  						 mvchip);
 +		mvchip->bank_irq[i] = irq;
  	}
  
- 	/* Some MVEBU SoCs have simple PWM support for GPIO lines */
+ 	return 0;

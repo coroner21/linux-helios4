@@ -5,10 +5,10 @@
 buildarch=4
 
 pkgbase=linux-helios4
-_srcname=linux-5.6
+_srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Helios4"
-pkgver=5.6.10
+pkgver=5.10.1
 pkgrel=1
 arch=('armv7h')
 url="http://www.kernel.org/"
@@ -26,16 +26,16 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '92-mvebu-gpio-remove-hardcoded-timer-assignment.patch'
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
         '94-helios4-dts-add-wake-on-lan-support.patch')
-md5sums=('7b9199ec5fa563ece9ed585ffb17798f'
-         '4b8b6ba4afd114d5767910146b7e688a'
-         '6563409fe816887996f1d855af4469f4'
+md5sums=('753adc474bf799d569dec4f165ed92c3'
+         '33c2cbab3e136939c065e397879a8087'
+         '1ac7b60ad33ed206206519127fb9ef97'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3e2a512f8da5db5fe9f17875405e56a3'
-         '6613d49e406496156552df6475a3557b'
-         'b9a900b7da3c9a1a9d4b8d86db3f7c94'
-         'd3f7e4b7a125e15cd13bed1c2a227f23'
-         '955982bda46fa0955b2dd5ea152421d2'
+         '6128c4c956554bfe930fb2c330c38cf5'
+         '4b99fe1502efca088b27b94883e033a6'
+         '847aa9826bfaee0178b681f73c6ccdfc'
+         '3de032ff60f93f71583954ed7a739d08'
          '5876ccfe05a07b64661556ea4fae4b59')
 
 prepare() {
@@ -48,8 +48,10 @@ prepare() {
   patch -Np1 < ../91-01-libata-add-ledtrig-support.patch
   patch -Np1 < ../91-02-Enable-ATA-port-LED-trigger.patch
   patch -Np1 < ../92-mvebu-gpio-remove-hardcoded-timer-assignment.patch
+  patch -Np1 < ../92-mvebu-gpio-remove-hardcoded-timer-assignment-2.patch
   patch -Np1 < ../92-mvebu-gpio-add_wake_on_gpio_support.patch
   patch -Np1 < ../94-helios4-dts-add-wake-on-lan-support.patch
+  patch -Np1 < ../95-helios4-dts-assign-pinctrl-to-fan-and-led.patch
 
   cat "${srcdir}/config" > ./.config
 
