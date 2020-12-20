@@ -24,8 +24,10 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '91-01-libata-add-ledtrig-support.patch'
         '91-02-Enable-ATA-port-LED-trigger.patch'
         '92-mvebu-gpio-remove-hardcoded-timer-assignment.patch'
+	'92-mvebu-gpio-remove-hardcoded-timer-assignment-2.patch'
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
-        '94-helios4-dts-add-wake-on-lan-support.patch')
+        '94-helios4-dts-add-wake-on-lan-support.patch'
+	'95-helios4-dts-assign-pinctrl-to-fan-and-led.patch')
 md5sums=('753adc474bf799d569dec4f165ed92c3'
          '33c2cbab3e136939c065e397879a8087'
          '1ac7b60ad33ed206206519127fb9ef97'
@@ -35,8 +37,10 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          '6128c4c956554bfe930fb2c330c38cf5'
          '4b99fe1502efca088b27b94883e033a6'
          '847aa9826bfaee0178b681f73c6ccdfc'
+         '811d19e08ffb090878eb7268d13ebc9a'
          '3de032ff60f93f71583954ed7a739d08'
-         '5876ccfe05a07b64661556ea4fae4b59')
+         '5876ccfe05a07b64661556ea4fae4b59'
+         '3054f4c10af22fd94c5e95690be8d2c5')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
