@@ -27,10 +27,19 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
 	'92-mvebu-gpio-remove-hardcoded-timer-assignment-2.patch'
         '92-mvebu-gpio-add_wake_on_gpio_support.patch'
         '94-helios4-dts-add-wake-on-lan-support.patch'
-	'95-helios4-dts-assign-pinctrl-to-fan-and-led.patch')
+	'95-helios4-dts-assign-pinctrl-to-fan-and-led.patch'
+	'omit_VFP_emulation_exceptions_kernel_mode.patch'
+	'general-increasing_DMA_block_memory_allocation_to_2048.patch'
+	'800-Add_Armada_38x_support_for_clk-cpu.patch'
+	'801-Use_shorter_register_definition_in_pmsu_c.patch'
+	'802-Made_the_dynamic_frequency_scaling_support_more_generic.patch'
+	'803-Armada_38x_Add_dynamic_frequency_scaling_support_in_pmsu.patch'
+	'804-Update_Armada_38x_DT_for_dynamic_frequency_scaling.patch'
+	'806-disable-clocksource.patch')
+
 md5sums=('753adc474bf799d569dec4f165ed92c3'
          '33c2cbab3e136939c065e397879a8087'
-         '1ac7b60ad33ed206206519127fb9ef97'
+         '990bf7a271bb5bf848f0fa8089b6404b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3e2a512f8da5db5fe9f17875405e56a3'
@@ -40,7 +49,15 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          '811d19e08ffb090878eb7268d13ebc9a'
          '3de032ff60f93f71583954ed7a739d08'
          '5876ccfe05a07b64661556ea4fae4b59'
-         '3054f4c10af22fd94c5e95690be8d2c5')
+         '3054f4c10af22fd94c5e95690be8d2c5'
+         '5660b2744d76a0c7847b96c22694efa7'
+         'af865b0d5124cf882422db30983d0315'
+         '4495ba977261ddccf5ba87ffb0b728b3'
+         'dda2f8d133be50e6ae2a57cd5fcce92d'
+         'cafeeeaac085cf9d2617f191a779f897'
+         'd8d4a6965fd9d442f4b9058e03992c18'
+         'fc60a794652c6bafc1f4de8d3faa3444'
+         '2ca1b77113a044d325ac6e473ed2bb3b')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
@@ -56,6 +73,14 @@ prepare() {
   patch -Np1 < ../92-mvebu-gpio-add_wake_on_gpio_support.patch
   patch -Np1 < ../94-helios4-dts-add-wake-on-lan-support.patch
   patch -Np1 < ../95-helios4-dts-assign-pinctrl-to-fan-and-led.patch
+  patch -Np1 < ../omit_VFP_emulation_exceptions_kernel_mode.patch
+  patch -Np1 < ../general-increasing_DMA_block_memory_allocation_to_2048.patch
+  patch -Np1 < ../800-Add_Armada_38x_support_for_clk-cpu.patch
+  patch -Np1 < ../801-Use_shorter_register_definition_in_pmsu_c.patch
+  patch -Np1 < ../802-Made_the_dynamic_frequency_scaling_support_more_generic.patch
+  patch -Np1 < ../803-Armada_38x_Add_dynamic_frequency_scaling_support_in_pmsu.patch
+  patch -Np1 < ../804-Update_Armada_38x_DT_for_dynamic_frequency_scaling.patch
+  patch -Np1 < ../806-disable-clocksource.patch
 
   cat "${srcdir}/config" > ./.config
 
